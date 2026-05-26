@@ -1,12 +1,9 @@
-# index.html
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Directory Listing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub File Index</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,71 +12,49 @@
       padding: 20px;
     }
 
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      margin: 8px 0;
-    }
-
     a {
       color: #4ea3ff;
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    li {
+      margin: 8px 0;
     }
   </style>
 </head>
 <body>
-  <h1>Files in Directory</h1>
-  <ul id="file-list"></ul>
+  <h1>Repository Files</h1>
+  <ul id="files"></ul>
 
   <script>
+    const owner = 'eduspacework';
+    const repo = 'courses';
+    const path = ''; // optional subfolder
+
     async function loadFiles() {
-      const list = document.getElementById('file-list');
+      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+      const res = await fetch(url);
+      const data = await res.json();
 
-      try {
-        const response = await fetch('./');
-        const text = await response.text();
+      const list = document.getElementById('files');
 
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
+      data.forEach(file => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
 
-        const links = [...doc.querySelectorAll('a')]
-          .map(a => a.getAttribute('href'))
-          .filter(href => href && href !== '../');
+        a.href = file.path;
+        a.textContent = file.name;
 
-        list.innerHTML = '';
+        if (file.type === 'dir') {
+          a.href += '/';
+        }
 
-        links.forEach(file => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-
-          a.href = file;
-          a.textContent = file;
-
-          li.appendChild(a);
-          list.appendChild(li);
-        });
-      } catch (err) {
-        list.innerHTML = '<li>Unable to load directory listing.</li>';
-        console.error(err);
-      }
+        li.appendChild(a);
+        list.appendChild(li);
+      });
     }
 
     loadFiles();
   </script>
 </body>
 </html>
-```
-
-This works only if your web server allows directory listing (Apache/Nginx autoindex enabled). Place this file inside the directory you want to display.
-
