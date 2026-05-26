@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMPS Notes</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      padding: 30px;
+      color: #222;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .header {
+      background: #0f4c81;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 35px;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .info div {
+      background: #f7f9fc;
+      padding: 12px;
+      border-left: 4px solid #0f4c81;
+      border-radius: 6px;
+    }
+
+    h2 {
+      margin-top: 25px;
+      margin-bottom: 15px;
+      color: #0f4c81;
+      font-size: 20px;
+    }
+
+    .line {
+      border-bottom: 1px solid #bbb;
+      margin: 18px 0;
+    }
+
+    .footer {
+      background: #0f4c81;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      font-size: 14px;
+    }
+    
+    
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>MMPS Bagh</h1>
+    </div>
+
+    <div class="content">
+
+      <div class="info">
+        <div><strong>Subject:</strong> <span id="subject">__________</span></div>
+        <div><strong>Class:</strong> <span id="class">__________</span></div>
+        <div><strong>Topic:</strong> <span id="topic">__________</span></div>
+        <div><strong>Date:</strong> <span id="date">__________</span></div>
+      </div>
+
+      <script>
+        // Example filename:
+        // IT_12_topic_26052026.html
+
+        const fileName = window.location.pathname
+          .split('/')
+          .pop()
+          .replace('.html', '');
+
+        const parts = fileName.split('_');
+
+        if (parts.length >= 4) {
+          document.getElementById('subject').textContent = parts[0];
+          document.getElementById('class').textContent = parts[1];
+          document.getElementById('topic').textContent = parts[2];
+
+          const rawDate = parts[3];
+
+          if (rawDate.length === 8) {
+            const formattedDate = `${rawDate.slice(0,2)}/${rawDate.slice(2,4)}/${rawDate.slice(4)}`;
+            document.getElementById('date').textContent = formattedDate;
+          } else {
+            document.getElementById('date').textContent = rawDate;
+          }
+        }
+      </script>
+
+    </div>
+
+      <!--<h2>Notes</h2>-->
+
+      <iframe
+        id="notesFrame"
+        style="width:100%; min-height:800px; border:1px solid #ddd; border-radius:8px; background:#fff;"
+      ></iframe>
+
+      <script>
+        // Load matching notes HTML file
+        // Example:
+        // IT_12_topic_26052026.html
+        // IT_12_topic_26052026_notes.html
+
+        const currentFile = window.location.pathname
+          .split('/')
+          .pop();
+
+        const baseName = currentFile.replace('.html', '');
+
+        const notesFile = `${baseName}_notes.html`;
+
+        document.getElementById('notesFrame').src = notesFile;
+      </script>
+
+
+    </div>
+
+    <div class="footer">
+      Prepared for students of <a href="https://mmpsbagh.co.in/" >MMPS Bagh</a>  • Academic Notes
+    </div>
+
+  </div>
+
+</body>
+</html>
