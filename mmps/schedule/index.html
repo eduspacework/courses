@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>College Schedule — IT & Employability Skills</title>
+<style>
+  /* Color & typography inspired by mmpsbagh.co.in */
+  :root{
+    --maroon:#7b1620;
+    --gold:#d9b24a;
+    --paper:#fff9f6;
+    --card:#fff;
+    --muted:#4b4b4b;
+    --accent:#b02b2f;
+    --shadow: 0 8px 22px rgba(11,16,22,0.08);
+    font-family: "Merriweather", Georgia, serif;
+  }
+  /* Base reset */
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:linear-gradient(180deg,#fff,#fff7f3 60%);
+    color:var(--muted);
+    -webkit-font-smoothing:antialiased;
+    padding:28px;
+    display:flex;
+    justify-content:center;
+  }
+  .wrap{ width:100%; max-width:1100px; }
+
+  header{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    margin-bottom:20px;
+  }
+  .brand{
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+  .crest{
+    width:72px;
+    height:72px;
+    border-radius:10px;
+    background:linear-gradient(135deg,var(--maroon),#a22a2f);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--paper);
+    font-weight:700;
+    font-size:20px;
+    box-shadow:var(--shadow);
+    border:4px solid rgba(255,255,255,0.06);
+  }
+  h1{
+    margin:0;
+    font-size:20px;
+    color:var(--maroon);
+    font-family: "Merriweather", Georgia, serif;
+  }
+  p.lead{ margin:4px 0 0 0; color:var(--muted); font-size:13px; font-family:system-ui, sans-serif; }
+
+  .controls{ margin-left:auto; display:flex; gap:8px; align-items:center; }
+
+  button.btn{
+    background:var(--maroon);
+    color:var(--paper);
+    border:0;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:700;
+    box-shadow:0 6px 14px rgba(123,22,32,0.14);
+    font-family:system-ui, sans-serif;
+  }
+  button.secondary{ background:transparent; color:var(--maroon); border:1px solid rgba(123,22,32,0.12); box-shadow:none; }
+
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    padding:18px;
+    box-shadow:var(--shadow);
+  }
+
+  /* layout */
+  .tabs{ display:flex; gap:8px; margin-bottom:16px; }
+  .tab{
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    background:transparent;
+    color:var(--maroon);
+    border:1px solid transparent;
+    font-weight:700;
+    font-family:system-ui, sans-serif;
+  }
+  .tab.active{ background:var(--maroon); color:var(--paper); }
+
+  .grid{ display:grid; grid-template-columns:1fr 320px; gap:18px; align-items:start; }
+  @media (max-width:980px){ .grid{ grid-template-columns:1fr; } aside{ order:-1 } }
+
+  /* class cards */
+  .section h2{
+    margin:0 0 10px 0;
+    color:var(--maroon);
+    font-family:"Merriweather", Georgia, serif;
+    font-size:18px;
+  }
+  .class-card{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid rgba(123,22,32,0.06);
+    background:linear-gradient(180deg,#fff,#fffefc);
+    margin-bottom:12px;
+  }
+  .class-card .left{
+    min-width:64px;
+    height:64px;
+    border-radius:8px;
+    background:var(--gold);
+    color:var(--maroon);
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    box-shadow:0 6px 12px rgba(176,43,47,0.06);
+    font-family:"Merriweather", Georgia, serif;
+  }
+  .class-card h3{ margin:0 0 6px 0; color:var(--accent); font-size:16px; font-family:"Merriweather", Georgia, serif; }
+  .class-card ul{ margin:0; padding-left:18px; font-family:system-ui, sans-serif; color:var(--muted); }
+
+  .term-badge{
+    display:inline-block;
+    padding:4px 8px;
+    background:rgba(176,43,47,0.08);
+    color:var(--accent);
+    border-radius:8px;
+    font-weight:800;
+    font-size:12px;
+    margin-left:8px;
+  }
+
+  aside .meta{ display:flex; flex-direction:column; gap:12px; }
+  .chip{
+    display:inline-block;
+    padding:8px 10px;
+    background:rgba(123,22,32,0.06);
+    color:var(--maroon);
+    border-radius:999px;
+    font-weight:700;
+    font-family:system-ui, sans-serif;
+  }
+
+  .box{ padding:12px; border-radius:10px; background:#fffaf8; border:1px solid rgba(123,22,32,0.04); }
+
+  /* small print */
+  .muted{ color:var(--muted); font-size:13px; }
+
+  /* print */
+  @media print{
+    body{ background:#fff; padding:0; }
+    header, .controls{ display:none; }
+    .card{ box-shadow:none; border-radius:0; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="crest">MMPS</div>
+        <div>
+          <h1>MMPS — Weekly Schedule</h1>
+          <p class="lead">IT (Mon/Wed/Fri) & Employability Skills (Tue/Thu/Sat)</p>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="printBtn">Print</button>
+        <button class="btn secondary" id="pdfBtn">Download PDF</button>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="tabs" role="tablist" aria-label="Schedule tabs">
+        <div class="tab active" data-target="itTab" role="tab" aria-selected="true">A) IT</div>
+        <div class="tab" data-target="empTab" role="tab" aria-selected="false">B) Employability Skills</div>
+      </div>
+
+      <div class="grid">
+        <main>
+          <!-- IT -->
+          <section id="itTab" class="tab-panel" aria-hidden="false">
+            <div class="section">
+              <h2>A) IT — Monday, Wednesday and Friday</h2>
+
+              <div class="class-card">
+                <div class="left">9</div>
+                <div>
+                  <h3>Class 9</h3>
+                  <ul>
+                    <li>Spreadsheet</li>
+                    <li>DBMS</li>
+                    <li>Writer</li>
+                    <li>Workplace Ethics</li>
+                    <li>Projects</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="class-card">
+                <div class="left">10</div>
+                <div>
+                  <h3>Class 10 <span class="term-badge">Term 1</span></h3>
+                  <ul>
+                    <li>Web Applications</li>
+                    <li>Functional English</li>
+                    <li>Word processing</li>
+                    <li>Projects</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="class-card">
+                <div class="left">10</div>
+                <div>
+                  <h3>Class 10 <span class="term-badge">Term 2</span></h3>
+                  <ul>
+                    <li>Spreadsheet</li>
+                    <li>Database Development</li>
+                    <li>Email Messaging</li>
+                    <li>Digital Presentation</li>
+                    <li>Projects</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="class-card">
+                <div class="left">11</div>
+                <div>
+                  <h3>Class 11</h3>
+                  <ul>
+                    <li>Computer Organisation</li>
+                    <li>Networking and Internet</li>
+                    <li>Office Automation</li>
+                    <li>Relational Database Management System</li>
+                    <li>Fundamentals to Java Programming</li>
+                    <li>Final Project</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="class-card">
+                <div class="left">12</div>
+                <div>
+                  <h3>Class 12</h3>
+                  <ul>
+                    <li>Java</li>
+                    <li>Operating Web</li>
+                    <li>Database Concepts</li>
+                    <li>IT DMA</li>
+                    <li>Final Project</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Employability -->
+          <section id="empTab" class="tab-panel" aria-hidden="true" style="display:none;">
+            <div class="section">
+              <h2>B) Employability Skills — Tuesday, Thursday, Saturday</h2>
+
+              <div class="class-card">
+                <div class="left">9–12</div>
+                <div>
+                  <h3>Class 9, 10, 11, 12</h3>
+                  <ul>
+                    <li>ICT</li>
+                    <li>Communication</li>
+                    <li>Self Management</li>
+                    <li>Entrepreneuship</li>
+                    <li>Green</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </main>
+
+        <aside>
+          <div class="meta">
+            <div class="box">
+              <h3 style="margin:0 0 8px 0; color:var(--maroon); font-family:'Merriweather',Georgia,serif;">Days</h3>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <div class="chip">Mon</div>
+                <div class="chip">Tue</div>
+                <div class="chip">Wed</div>
+                <div class="chip">Thu</div>
+                <div class="chip">Fri</div>
+                <div class="chip">Sat</div>
+              </div>
+            </div>
+
+            <div class="box">
+              <h3 style="margin:0 0 8px 0; color:var(--maroon); font-family:'Merriweather',Georgia,serif;">Legend</h3>
+              <p class="muted" style="margin:0">
+                <strong style="color:var(--accent)">IT:</strong> Monday, Wednesday, Friday<br>
+                <strong style="color:var(--accent)">Employability Skills:</strong> Tuesday, Thursday, Saturday<br>
+                Class 10 is split into Term 1 and Term 2.
+              </p>
+            </div>
+
+            <div class="box">
+              <h3 style="margin:0 0 8px 0; color:var(--maroon); font-family:'Merriweather',Georgia,serif;">Export</h3>
+              <p class="muted" style="margin:0">Use Print or Save as PDF via the buttons above.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <footer style="text-align:center; margin-top:20px; font-family:system-ui,sans-serif; font-size:14px; color:var(--muted);">
+  Official Website:
+  <a href="https://mmpsbagh.co.in/" target="_blank" style="color:var(--maroon); font-weight:700;">
+    www.mmpsbagh.co.in
+  </a>
+</footer>
+
+
+  </div>
+
+
+
+
+<script>
+  // Tabs
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(p => {
+        p.style.display = 'none';
+        p.setAttribute('aria-hidden','true');
+      });
+      const id = t.getAttribute('data-target');
+      document.getElementById(id).style.display = '';
+      document.getElementById(id).setAttribute('aria-hidden','false');
+    });
+  });
+
+  // Print / PDF (browser dialog)
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+  document.getElementById('pdfBtn').addEventListener('click', () => window.print());
+
+  // Keyboard nav for accessibility
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  tabs.forEach((tab, idx) => {
+    tab.setAttribute('tabindex','0');
+    tab.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight') { tabs[(idx+1)%tabs.length].click(); tabs[(idx+1)%tabs.length].focus(); }
+      if(e.key === 'ArrowLeft') { tabs[(idx-1+tabs.length)%tabs.length].click(); tabs[(idx-1+tabs.length)%tabs.length].focus(); }
+    });
+  });
+</script>
+
+
+</body>
+
+
+</html>
